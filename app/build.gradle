@@ -28,14 +28,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':dsbridge')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.3.0'
 
     // Core library
     androidTestImplementation 'androidx.test:runner:1.2.0'
 
     // Junit
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 
