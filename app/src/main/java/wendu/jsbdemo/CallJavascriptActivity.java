@@ -1,7 +1,9 @@
 package wendu.jsbdemo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,11 +37,8 @@ public class CallJavascriptActivity extends AppCompatActivity implements View.On
         getView(R.id.hasMethodAsynAddValue).setOnClickListener(this);
         getView(R.id.hasMethodAsynXX).setOnClickListener(this);
         DWebView.setWebContentsDebuggingEnabled(true);
-        dWebView= getView(R.id.webview);
+        dWebView = getView(R.id.webview);
         dWebView.loadUrl("file:///android_asset/native-call-js.html");
-
-
-
     }
 
 
@@ -139,6 +138,5 @@ public class CallJavascriptActivity extends AppCompatActivity implements View.On
                 });
                 break;
         }
-
     }
 }

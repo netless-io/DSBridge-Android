@@ -3,7 +3,6 @@ package wendu.dsbridge;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-//import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,8 +12,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Keep;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,6 +32,9 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import androidx.annotation.Keep;
+import androidx.appcompat.app.AlertDialog;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * Created by du on 16/12/29.
@@ -93,7 +92,7 @@ public class DWebView extends WebView {
                 PrintDebugInfo(error);
                 return ret.toString();
             }
-            Object arg=null;
+            Object arg = null;
             Method method = null;
             String callback = null;
 
@@ -102,7 +101,7 @@ public class DWebView extends WebView {
                 if (args.has("_dscbstub")) {
                     callback = args.getString("_dscbstub");
                 }
-                if(args.has("data")) {
+                if (args.has("data")) {
                     arg = args.get("data");
                 }
             } catch (JSONException e) {
@@ -336,7 +335,7 @@ public class DWebView extends WebView {
                                 || javascriptCloseWindowListener.onClose()) {
                             Context context = getContext();
                             if (context instanceof Activity) {
-                                ((Activity)context).onBackPressed();
+                                ((Activity) context).onBackPressed();
                             }
                         }
                     }
@@ -359,7 +358,7 @@ public class DWebView extends WebView {
 
             @Keep
             @JavascriptInterface
-            public void returnValue(final Object obj){
+            public void returnValue(final Object obj) {
                 runOnMainThread(new Runnable() {
                     @Override
                     public void run() {
@@ -422,9 +421,9 @@ public class DWebView extends WebView {
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                if (url != null && url.startsWith("javascript:")){
+                if (url != null && url.startsWith("javascript:")) {
                     DWebView.super.loadUrl(url);
-                }else{
+                } else {
                     callInfoList = new ArrayList<>();
                     DWebView.super.loadUrl(url);
                 }
@@ -444,9 +443,9 @@ public class DWebView extends WebView {
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                if (url != null && url.startsWith("javascript:")){
+                if (url != null && url.startsWith("javascript:")) {
                     DWebView.super.loadUrl(url, additionalHttpHeaders);
-                }else{
+                } else {
                     callInfoList = new ArrayList<>();
                     DWebView.super.loadUrl(url, additionalHttpHeaders);
                 }
@@ -995,8 +994,6 @@ public class DWebView extends WebView {
         }
         mainHandler.post(runnable);
     }
-
-
 
 
 }

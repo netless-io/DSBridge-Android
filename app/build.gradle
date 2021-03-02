@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion sdkVersion
+
     defaultConfig {
         applicationId "wendu.jsbdemo"
-        minSdkVersion 11
-        targetSdkVersion 23
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.sdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     buildTypes {
         release {
@@ -23,14 +25,17 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile project(path: ':dsbridge')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.squareup.okhttp3:okhttp:3.3.0'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':dsbridge')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.3.0'
+
+    // Core library
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+
+    // Junit
+    testImplementation 'junit:junit:4.12'
 }
 
 
