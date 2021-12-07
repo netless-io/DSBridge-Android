@@ -32,9 +32,6 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import androidx.annotation.Keep;
-import androidx.appcompat.app.AlertDialog;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +42,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.Keep;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by du on 16/12/29.
@@ -348,7 +348,12 @@ public class DWebView extends WebView {
             @Keep
             @JavascriptInterface
             public void dsinit(Object jsonObject) {
-                DWebView.this.dispatchStartupQueue();
+                runOnMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DWebView.this.dispatchStartupQueue();
+                    }
+                });
             }
 
             @Keep
