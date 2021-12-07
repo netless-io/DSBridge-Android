@@ -111,7 +111,6 @@ public class DWebView extends WebView {
                 return ret.toString();
             }
 
-
             Class<?> cls = jsb.getClass();
             boolean asyn = false;
             try {
@@ -131,7 +130,6 @@ public class DWebView extends WebView {
                 PrintDebugInfo(error);
                 return ret.toString();
             }
-
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 JavascriptInterface annotation = method.getAnnotation(JavascriptInterface.class);
@@ -199,7 +197,6 @@ public class DWebView extends WebView {
             }
             return ret.toString();
         }
-
     }
 
     Map<Integer, OnReturnValue> handlerMap = new HashMap<>();
@@ -210,7 +207,6 @@ public class DWebView extends WebView {
          */
         boolean onClose();
     }
-
 
     @Deprecated
     public interface FileChooser {
@@ -270,7 +266,6 @@ public class DWebView extends WebView {
             settings.setUserAgentString(settings.getUserAgentString() + " _dsbridge");
         }
     }
-
 
     private String[] parseNamespace(String method) {
         int pos = method.lastIndexOf('.');
@@ -471,7 +466,6 @@ public class DWebView extends WebView {
         javascriptCloseWindowListener = listener;
     }
 
-
     private static class CallInfo {
         private String data;
         private int callbackId;
@@ -573,7 +567,6 @@ public class DWebView extends WebView {
         javaScriptNamespaceInterfaces.remove(namespace);
 
     }
-
 
     public void disableJavascriptDialogBlock(boolean disable) {
         alertBoxBlock = !disable;
@@ -994,6 +987,4 @@ public class DWebView extends WebView {
         }
         mainHandler.post(runnable);
     }
-
-
 }
