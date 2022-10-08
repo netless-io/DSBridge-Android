@@ -3,9 +3,7 @@ package wendu.dsbridge;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -14,9 +12,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
@@ -29,8 +25,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
+
+import androidx.annotation.Keep;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,9 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.Keep;
-import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by du on 16/12/29.
@@ -68,9 +61,8 @@ public class DWebView extends WebView {
     private class InnerJavascriptInterface {
 
         private void PrintDebugInfo(String error) {
-            Log.d(LOG_TAG, error);
             if (isDebug) {
-                evaluateJavascript(String.format("alert('%s')", "DEBUG ERR MSG:\\n" + error.replaceAll("\\'", "\\\\'")));
+                Log.e(LOG_TAG, "dsBridge DEBUG ERR MSG:\\n" + error.replaceAll("'", "\\\\'"));
             }
         }
 
@@ -681,26 +673,7 @@ public class DWebView extends WebView {
             if (!alertBoxBlock) {
                 result.confirm();
             }
-            if (webChromeClient != null) {
-                if (webChromeClient.onJsAlert(view, url, message, result)) {
-                    return true;
-                }
-            }
-            Dialog alertDialog = new AlertDialog.Builder(getContext()).
-                    setMessage(message).
-                    setCancelable(false).
-                    setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            if (alertBoxBlock) {
-                                result.confirm();
-                            }
-                        }
-                    })
-                    .create();
-            alertDialog.show();
-            return true;
+            return webChromeClient != null && webChromeClient.onJsAlert(view, url, message, result);
         }
 
         @Override
@@ -709,30 +682,7 @@ public class DWebView extends WebView {
             if (!alertBoxBlock) {
                 result.confirm();
             }
-            if (webChromeClient != null && webChromeClient.onJsConfirm(view, url, message, result)) {
-                return true;
-            } else {
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (alertBoxBlock) {
-                            if (which == Dialog.BUTTON_POSITIVE) {
-                                result.confirm();
-                            } else {
-                                result.cancel();
-                            }
-                        }
-                    }
-                };
-                new AlertDialog.Builder(getContext())
-                        .setMessage(message)
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.ok, listener)
-                        .setNegativeButton(android.R.string.cancel, listener).show();
-                return true;
-
-            }
-
+            return webChromeClient != null && webChromeClient.onJsConfirm(view, url, message, result);
         }
 
         @Override
@@ -751,46 +701,7 @@ public class DWebView extends WebView {
                 result.confirm();
             }
 
-            if (webChromeClient != null && webChromeClient.onJsPrompt(view, url, message, defaultValue, result)) {
-                return true;
-            } else {
-                final EditText editText = new EditText(getContext());
-                editText.setText(defaultValue);
-                if (defaultValue != null) {
-                    editText.setSelection(defaultValue.length());
-                }
-                float dpi = getContext().getResources().getDisplayMetrics().density;
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (alertBoxBlock) {
-                            if (which == Dialog.BUTTON_POSITIVE) {
-                                result.confirm(editText.getText().toString());
-                            } else {
-                                result.cancel();
-                            }
-                        }
-                    }
-                };
-                new AlertDialog.Builder(getContext())
-                        .setTitle(message)
-                        .setView(editText)
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.ok, listener)
-                        .setNegativeButton(android.R.string.cancel, listener)
-                        .show();
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                int t = (int) (dpi * 16);
-                layoutParams.setMargins(t, 0, t, 0);
-                layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-                editText.setLayoutParams(layoutParams);
-                int padding = (int) (15 * dpi);
-                editText.setPadding(padding - (int) (5 * dpi), padding, padding, padding);
-                return true;
-            }
-
+            return webChromeClient != null && webChromeClient.onJsPrompt(view, url, message, defaultValue, result);
         }
 
         @Override
