@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="wendu.jsbdemo.WrokWithFlyioTestActivity">
-    <wendu.dsbridge.DWebView
+    <wendu.dsbridge.special.DWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

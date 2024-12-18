@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import wendu.dsbridge.CompletionHandler;
+import wendu.dsbridge.special.CompletionHandler;
 
 /**
  * Created by du on 2017/10/31.

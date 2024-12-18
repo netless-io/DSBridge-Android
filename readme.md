@@ -90,7 +90,7 @@ To use  dsBridge in your own project:
 2. Add API object to DWebView .
 
    ```javascript
-   import wendu.dsbridge.DWebView
+   import wendu.dsbridge.sp.DWebView
    ...
    DWebView dwebView= (DWebView) findViewById(R.id.dwebview);
    dwebView.addJavascriptObject(new JsApi(), null);

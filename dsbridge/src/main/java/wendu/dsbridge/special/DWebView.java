@@ -1,4 +1,4 @@
-package wendu.dsbridge;
+package wendu.dsbridge.special;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

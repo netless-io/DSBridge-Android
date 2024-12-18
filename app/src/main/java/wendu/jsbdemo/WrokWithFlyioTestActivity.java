@@ -6,8 +6,8 @@ import android.webkit.JavascriptInterface;
 
 import org.json.JSONObject;
 
-import wendu.dsbridge.CompletionHandler;
-import wendu.dsbridge.DWebView;
+import wendu.dsbridge.special.CompletionHandler;
+import wendu.dsbridge.special.DWebView;
 
 public class WrokWithFlyioTestActivity extends AppCompatActivity {
 

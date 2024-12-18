@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import wendu.dsbridge.DWebView;
-import wendu.dsbridge.OnReturnValue;
+import wendu.dsbridge.special.DWebView;
+import wendu.dsbridge.special.OnReturnValue;
 
 public class CallJavascriptActivity extends AppCompatActivity implements View.OnClickListener {
 

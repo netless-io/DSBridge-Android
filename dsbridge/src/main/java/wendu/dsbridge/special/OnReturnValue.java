@@ -1,4 +1,4 @@
-package wendu.dsbridge;
+package wendu.dsbridge.special;
 
 /**
  * Created by du on 16/12/31.

@@ -99,7 +99,7 @@ DSBridge v3.0 是一个里程碑版本，和v2.0相比，有许多变化，需�
 2. 添加API类实例到 DWebView .
 
    ```javascript
-   import wendu.dsbridge.DWebView
+   import wendu.dsbridge.sp.DWebView
    ...
    DWebView dwebView= (DWebView) findViewById(R.id.dwebview);
    dwebView.addJavascriptObject(new JsApi(), null);

@@ -6,7 +6,7 @@ import android.webkit.JavascriptInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import wendu.dsbridge.CompletionHandler;
+import wendu.dsbridge.special.CompletionHandler;
 
 /**
  * Created by du on 16/12/31.

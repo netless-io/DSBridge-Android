@@ -3,7 +3,7 @@ package wendu.jsbdemo;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import wendu.dsbridge.DWebView;
+import wendu.dsbridge.special.DWebView;
 
 public class JavascriptCallNativeActivity extends AppCompatActivity {
 
