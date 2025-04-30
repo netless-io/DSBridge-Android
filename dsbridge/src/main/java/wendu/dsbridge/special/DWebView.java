@@ -476,6 +476,12 @@ public class DWebView extends WebView {
             method = handlerName;
         }
 
+        CallInfo(String handlerName, int id, String argsStr) {
+            data = argsStr;
+            callbackId = id;
+            method = handlerName;
+        }
+
         @Override
         public String toString() {
             JSONObject jo = new JSONObject();
@@ -504,18 +510,13 @@ public class DWebView extends WebView {
     }
 
     public synchronized <T> void callHandler(String method, Object[] args, final OnReturnValue<T> handler) {
-
         CallInfo callInfo = new CallInfo(method, ++callID, args);
-        if (handler != null) {
-            handlerMap.put(callInfo.callbackId, handler);
-        }
+        enqueueCall(callInfo, handler);
+    }
 
-        if (callInfoList != null) {
-            callInfoList.add(callInfo);
-        } else {
-            dispatchJavascriptCall(callInfo);
-        }
-
+    public synchronized <T> void callHandlerWithSerializedArgs(String method, String argsStr, final OnReturnValue<T> handler) {
+        CallInfo callInfo = new CallInfo(method, ++callID, argsStr);
+        enqueueCall(callInfo, handler);
     }
 
     public void callHandler(String method, Object[] args) {
@@ -526,6 +527,16 @@ public class DWebView extends WebView {
         callHandler(method, null, handler);
     }
 
+    private synchronized <T> void enqueueCall(CallInfo callInfo, final OnReturnValue<T> handler) {
+        if (handler != null) {
+            handlerMap.put(callInfo.callbackId, handler);
+        }
+        if (callInfoList != null) {
+            callInfoList.add(callInfo);
+        } else {
+            dispatchJavascriptCall(callInfo);
+        }
+    }
 
     /**
      * Test whether the handler exist in javascript
